@@ -163,6 +163,7 @@ footer {
 .cell {
     margin: auto ;
     width: 2em;
+    text-align: center;
 }
 .column {
     width:30px ;

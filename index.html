@@ -42,6 +42,7 @@
         <tr ng-repeat="x in sudoku.rowArray">
             <td class="column" ng-repeat="y in x.group">
                 <input type='text' size='1' ng-model="y.value"
+                       onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;"
                        class="cell grp{{y.threeByThreeSquare.index}}">
             </td>
         </tr>
