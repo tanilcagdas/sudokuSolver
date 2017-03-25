@@ -56,7 +56,7 @@
 			}
 		}
 		var endTime = new Date().getTime();
-		console.log(endTime -startTime );
+		console.log('time'+ (endTime -startTime) );
 		return sudokuSolution;
 	}
 
@@ -178,7 +178,7 @@
 	}
 
 	function  evaluateGuessesForCell( cell) {
-		if (cell.getValue() == undefined || cell.getValue() == null || cell.getValue() === 0) {
+		if (cell.getValue() == undefined || cell.getValue() == null || cell.getValue() === 0 || cell.getValue() == "") {
 			cell.setGuesses( defaultGuesses());
 		} else {
 			cell.setFound(true);
@@ -239,6 +239,8 @@
 	}
 
 	function countHowManyCellsLeft(sudoku){
+
+		sudoku.howManyCellsLeft = 0 ;
 
 		methodRange(sudoku, "countHowManyCellsLeftForCell", ALL);
 		console.log(sudoku.howManyCellsLeft + " Cells is waiting to be solved");
