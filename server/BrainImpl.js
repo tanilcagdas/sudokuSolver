@@ -11,6 +11,7 @@
 	var DEFAULT_GUESSES;
 	var trial;
 	var sudokuCorrect = true;
+	var sudoku;
 
 	function defaultGuesses(){
 		var arr= [];
@@ -26,6 +27,7 @@
             /*= new Sudoku();*/
 		sudokuSolution = sudoku.copy();
 		sudokuSolution.sudokuHasChanged = true;
+		this.sudoku = sudokuSolution;
 		try {
 			evaluateGuesses(sudokuSolution);
 		} catch (e) {
@@ -56,7 +58,7 @@
 			}
 		}
 		var endTime = new Date().getTime();
-		console.log('time'+ (endTime -startTime) );
+		console.log('time :'+ (endTime -startTime) );
 		return sudokuSolution;
 	}
 
@@ -249,7 +251,6 @@
 
 	function countHowManyCellsLeftForCell( cell)  {
 		if (cell.getValue() == undefined || cell.getValue() == null || cell.getValue() === 0){
-			var sudoku = cell.row.sudoku;
 			sudoku.howManyCellsLeft = sudoku.howManyCellsLeft + 1;
 		}
 
