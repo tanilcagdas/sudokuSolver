@@ -63,7 +63,7 @@
 	function clearGuesseswithdifsVertical(sudokuSolution, difs, index){
 
 		var div = Math.floor(index / 3);
-		var start = div *3 ;
+		var start = div *3 + 1 ;
 		var end = start + 7;
 		for(var i = start; i < end ; i+=3){
 			if(i==index){
