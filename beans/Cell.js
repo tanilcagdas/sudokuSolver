@@ -9,15 +9,7 @@ class Cell{
 			this.setThreeByThreeSquare(group);
 		}
 		// add guesses
-		var DEFAULT_GUESSES = [];
-		{
-			if (DEFAULT_GUESSES.length == 0) {
-				var i;
-				for ( i = 1; i < 10; i++)
-					DEFAULT_GUESSES.push(i);
 
-			}
-		}
 		this.guesses = [];
 		//var guesses = clone(DEFAULT_GUESSES);
 		this.guesses = DEFAULT_GUESSES;

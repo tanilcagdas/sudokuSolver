@@ -8,11 +8,7 @@ class Group {
             //group=new ArrayList<Cell>();
             this.group = [];
 
-            var i;
-            for (i = 0; i < 9; i++) {
-                var cell = new Cell(this);
-                this.group.push(cell);
-            }
+            
         }
     }
 

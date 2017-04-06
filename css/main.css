@@ -141,28 +141,29 @@ footer {
 
 .grp0 {
     background-color: black;
-    color: white;
+    color: darkgray;
 }
 .grp2 {
     background-color: black;
-    color: white;
+    color: darkgray;
 }
 .grp4 {
     background-color: black;
-    color: white);
+    color: darkgray;
 }
 .grp6 {
     background-color: black;
-    color: white;
+    color: darkgray;
 }
 .grp8 {
     background-color: black;
-    color: white;
+    color: darkgray;
 }
 
 .cell {
     margin: auto ;
     width: 2em;
+    text-align: center;
 }
 .column {
     width:30px ;
