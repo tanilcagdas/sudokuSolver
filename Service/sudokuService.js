@@ -1,7 +1,6 @@
  app.service('SudokuService', function($http) {
 
 
-
  	this.parse = function() {
  		var req = {
  			method : 'GET',
