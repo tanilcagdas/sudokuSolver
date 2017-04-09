@@ -21,119 +21,9 @@ function defaultGuesses(){
 	return arr;
 }
 
-function solveSudoku( sudoku) {
-	var startTime = new Date().getTime();
-	var sudokuSolution ;
-	/*= new Sudoku();*/
-	sudokuSolution = sudoku.copy();
-	sudokuSolution.sudokuHasChanged = true;
-	this.sudoku = sudokuSolution;
-	try {
-		evaluateGuesses(sudokuSolution);
-	} catch (e) {
-		console.error("Error Ocured", e);
-	}
-
-	try {
-		countHowManyCellsLeft(sudokuSolution);
-	} catch ( e) {
-		console.error(e);
-	}
-		//  Solve the f.cking sudoku
-
-		//  Check if the sudoku has changed
-		trial = 1;
-		while (sudokuSolution.sudokuHasChanged) {
-			while (sudokuSolution.sudokuHasChanged) {
-				while (sudokuSolution.sudokuHasChanged) {
-					if(sudokuSolution.howManyCellsLeft != 0)
-					solveSudokuByAlgorithm1(sudokuSolution);
-				}
-				if(sudokuSolution.howManyCellsLeft != 0)
-				solveSudokuByAlgorithm2(sudokuSolution);
-			}
-			if(sudokuSolution.howManyCellsLeft != 0 && trial < 300)
-			solveSudokuByAlgorithm3(sudokuSolution);
-		}
-		if (!sudokuSolution.solved) {
-			try {
-				//TODO NotSolvedWriter.log(sudoku, sudokuSolution);
-			} catch (e) {
-				console.error( "Error Ocured", e);
-			}
-		}
-		var endTime = new Date().getTime();
-		console.log('time :'+ (endTime -startTime) );
-		return sudokuSolution;
-	}
-
-	function solveSudokuStepByStep( sudokuSolution, algorithm) {
-		try {
-			evaluateGuesses(sudokuSolution);
-		} catch ( e) {
-			console.error( "Error Ocured", e);
-		}
-
-		//  Check if the sudoku has changed
-		trial = 1;
-
-		//  reflection
-		var methodName = "solveSudokuByAlgorithm" + algorithm;
-		try {
-
-			this[methodName](this,  sudokuSolution);
-
-		} catch (e) {
-			console.error("Error Ocured", e);
-		} 
-		return sudokuSolution;
-	}
 
 
-
-	function solveSudokuByAlgorithm2( sudokuSolution) {
-		if (sudokuSolution.howManyCellsLeft != 0)
-			try {
-				determineWhoHasUniqueGuessInGroup(sudokuSolution);
-			} 
-			catch (e) {
-
-				//if(e.getCause() instanceof SudokuException){
-					console.error(e);
-					return sudokuSolution;
-				//}else {
-				//	console.log(Level.SEVERE, "Error Ocured", e);
-				//}
-
-			}
-		// 
-		if (sudokuSolution.getHowManyCellsLeft() == 0) {
-			sudokuSolution.setSolved(true);
-			sudokuSolution.setSudokuHasChanged(false);
-			console.log("Sudoku is solved");
-			return sudokuSolution;
-		}
-		return sudokuSolution;
-	}
-
-	function loadDemoSudoku( demoSudoku) {
-		//  set all zeros
-		var row;
-		for ( row = 0; row < demoSudoku.getRowArray().length; row++) {
-			var column;
-			for ( column = 0; column < demoSudoku.getRowArray()[row]
-				.getGroup().length; column++)
-				var cell = demoSudoku.getRowArray()[row].getGroup()[column];
-			cell.setValue(0);
-		}
-		//  put known values
-		
-		loadSudoku1(demoSudoku);
-
-		return demoSudoku;
-
-	}
-
+	
 	function methodRange( sudoku,  methodName,  range){
 		var method;
 		if (range === ALL ) {
@@ -180,6 +70,7 @@ function solveSudoku( sudoku) {
 
 	function countHowManyCellsLeft(sudoku){
 
+		this.sudoku = sudoku;
 		sudoku.howManyCellsLeft = 0 ;
 
 		methodRange(sudoku, "countHowManyCellsLeftForCell", ALL);
@@ -196,37 +87,7 @@ function solveSudoku( sudoku) {
 	}
 
 
-	function  markAsUniqueGuessAndDetermine( number,  group) {
-		var i;
-		for ( i = 0; i < 9; i++) {
-			var cell = group.getGroup()[i];
-			if (cell.getGuesses() != null) {
-				for (let guess of cell.getGuesses()) {
-					if (guess == number) {
-						// TODO check others
-						var j;
-						for ( j = 0; j < 9; j++) {
-							if (i == j)
-								continue;
-							var compareCell = group.getGroup()[j];
-							if (compareCell.getGuesses() != null) {
-								for (let compareGuess of compareCell.getGuesses()) {
-									if (compareGuess == number) {
-										return;
-									}
-								}
-							};
-						}
-						cell.setValue(number);
-						cell.setColor(BLUE);
-						group.sudoku.setSudokuHasChanged(true);
-						group.sudoku.howManyCellsLeft = group.sudoku.howManyCellsLeft - 1;
-						break;
-					};
-				}
-			};
-		}
-	};
+
 
 	function  evaluateGuesses( sudoku) {
 		methodRange(sudoku, "evaluateGuessesForCell", ALL);

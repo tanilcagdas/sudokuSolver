@@ -53,6 +53,8 @@
 				continue;
 			}
 			if(difs.dif1.length > 0 || difs.dif2.length > 0 || difs.dif3.length > 0){
+				BLUE = "green";
+				RED = "orange";
 				clearGuessesFromSmallGroup(sudokuSolution.threeByThreeArray[i],difs);
 				sudokuSolution.setSudokuHasChanged(true);
 			}
@@ -70,6 +72,8 @@
 				continue;
 			}
 			if(difs.dif1.length > 0 || difs.dif2.length > 0 || difs.dif3.length > 0){
+				BLUE = "green";
+				RED = "orange";
 				clearGuessesFromSmallGroupVertical(sudokuSolution.threeByThreeArray[i],difs);
 				sudokuSolution.setSudokuHasChanged(true);
 			}
@@ -273,7 +277,7 @@
 		for (var i = 0; i < c.length; i++) {
 			for (var j = 0; j < b.length; j++) {
 				if (c[i] === b[j]) {
-					c.splice(i, 1);;
+					c.splice(i, 1);
 				}
 			}
 		}

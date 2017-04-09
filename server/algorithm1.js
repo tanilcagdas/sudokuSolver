@@ -22,49 +22,17 @@ function solveSudokuByAlgorithm1( sudokuSolution) {
 }
 
 function  determineCellsWhoHas1GuessForCell( cell){
-	if ((cell.getValue() == undefined || cell.getValue() == null || cell.getValue() === 0) && cell.getGuesses() != null
-		&& cell.getGuesses().length === 1) {
+	if ((cell.getValue() == undefined || cell.getValue() == null || cell.getValue() === 0) && cell.getGuesses() != null && cell.getGuesses().length === 1) {
 		var value = cell.getGuesses()[0];
-	cell.setValue(value);
-	cell.setColor(RED);
-	if (cell.getRow().sudoku.sudokuHasChanged === false) {
-		cell.getRow().sudoku.sudokuHasChanged = true;
-		console.log("sudoku has changed value has been found");
-	}
-}
-}
-
-function  determineWhoHasUniqueGuessInGroupForGroup( group) {
-	var number ;
-
-	for ( number = 1; number < 10; number++) {
-		var uniqueGuessCount = 0;
-		for (let cell of  group.getGroup()) {
-			if (cell.guesses != null) {
-				for (let guess of cell.getGuesses()) {
-					if (guess == number) {
-						uniqueGuessCount++;
-					}
-				}
-			}
+		cell.setValue(value);
+		cell.setColor(BLUE);
+		if (cell.getRow().sudoku.sudokuHasChanged === false) {
+			cell.getRow().sudoku.sudokuHasChanged = true;
+			console.log("sudoku has changed value has been found");
 		}
-		if (uniqueGuessCount == 1) {
-			for (let cell of group.getGroup()) {
-				if(cell.value==number){
-					return;
-				}
-			}
-			
-			
-			markAsUniqueGuessAndDetermine(number, group);
-			setSudokuCorrect(true);
-			isSudokuCorrect(group);
-			if(!isSudokuCorrect()){
-				console.error("Sudoku is not Correct after markAsUniqueGuessAndDetermine number : " +number+", group : "+group );
-			}
-		};
 	}
 }
+
 
 function  clearGuessesInGroupOfSudoku( sudoku) {
 	methodRange(sudoku, "clearGuessesInGroup", ROW);
@@ -95,8 +63,7 @@ function  clearGuessesInGroup( group) {
 				}
 				if (Guesses != null && Guesses.length > gssidx
 					&& Guesses[gssidx] == foundValues) {
-					group.getGroup()[groupidx].getGuesses()
-				.splice(gssidx, 1);
+					group.getGroup()[groupidx].getGuesses().splice(gssidx, 1);
 				if (group.sudoku.sudokuHasChanged === false) {
 					group.sudoku.sudokuHasChanged = true;
 				}
