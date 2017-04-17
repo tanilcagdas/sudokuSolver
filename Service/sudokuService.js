@@ -2,9 +2,11 @@
 
 
  	this.parse = function() {
+ 		var url = "http://localhost:8080/SudokuSolver/ParserServlet";
+ 		url = "http://localhost:8080/parseWebSudoku";
  		var req = {
  			method : 'GET',
- 			url : "http://localhost:8080/SudokuSolver/ParserServlet",
+ 			url : url,
  			headers : headers
  		}
  		return $http(req);
@@ -12,6 +14,57 @@
  	};
 
  	this.solveSudoku = function(sudoku) {
+ 		var url = "http://localhost:8080/solve";
+ 		let rowArray = sudoku.rowArray;
+ 		for (var i = rowArray.length - 1; i >= 0; i--) {
+ 			let row =rowArray[i]
+ 		
+			row.sudoku =null;
+			for(let j=0 ; j< row.group.length; j++){
+				let cell = row.group[j];
+				cell.setRow(null);
+				cell.setColumn(null);
+				cell.setThreeByThreeSquare(null);
+			}
+		}
+		 rowArray = sudoku.columnArray;
+ 		for (var i = rowArray.length - 1; i >= 0; i--) {
+ 			let row =rowArray[i]
+ 		
+			row.sudoku =null;
+			for(let j=0 ; j< row.group.length; j++){
+				let cell = row.group[j];
+				cell.setRow(null);
+				cell.setColumn(null);
+				cell.setThreeByThreeSquare(null);
+			}
+		}
+		 rowArray = sudoku.threeByThreeArray;
+ 		for (var i = rowArray.length - 1; i >= 0; i--) {
+ 			let row =rowArray[i]
+ 		
+			row.sudoku =null;
+			for(let j=0 ; j< row.group.length; j++){
+				let cell = row.group[j];
+				cell.setRow(null);
+				cell.setColumn(null);
+				cell.setThreeByThreeSquare(null);
+			}
+		}
+		
+ 		var req = {
+ 			method : 'POST',
+ 			url : url,
+ 			headers : headers,
+			data : 
+				{'rowArray': sudoku.rowArray}
+			
+ 		}
+ 		return $http(req);
+
+ 	};
+
+ 	this.solveSudokuJS = function(sudoku) {
 	var startTime = new Date().getTime();
 	var sudokuSolution ;
 	/*= new Sudoku();*/
@@ -39,14 +92,23 @@
 		while (sudokuSolution.sudokuHasChanged) {
 			while (sudokuSolution.sudokuHasChanged) {
 				while (sudokuSolution.sudokuHasChanged) {
-					if(sudokuSolution.howManyCellsLeft != 0)
+					sudokuSolution.sudokuHasChanged = false;
+					if(sudokuSolution.howManyCellsLeft != 0){
 					solveSudokuByAlgorithm1(sudokuSolution);
+					countHowManyCellsLeft(sudoku);
+					}
 				}
-				if(sudokuSolution.howManyCellsLeft != 0)
+				sudokuSolution.sudokuHasChanged = false;
+				if(sudokuSolution.howManyCellsLeft != 0){
 				solveSudokuByAlgorithm2(sudokuSolution);
+				countHowManyCellsLeft(sudoku)
+				}
 			}
-			if(sudokuSolution.howManyCellsLeft != 0 && trial < 300)
+			if(sudokuSolution.howManyCellsLeft != 0 && trial < 20){
+
 			solveSudokuByAlgorithm3(sudokuSolution);
+
+		}
 		}
 		if (!sudokuSolution.solved) {
 			try {
@@ -56,8 +118,19 @@
 			}
 		}
 		var endTime = new Date().getTime();
-		console.log('time :'+ (endTime -startTime) );
+		console.log('time :'+ (endTime - startTime) );
+		this.logSudoku(sudokuSolution);
 		return sudokuSolution;
+	}
+
+	this.logSudoku = function(sudokuSolution){
+		for (var i = 0; i < sudokuSolution.rowArray.length; i++) {
+			let cellArr = sudokuSolution.rowArray[i].getGroup();
+			for (var j = 0; j < cellArr.length; j++) {
+				let cell = cellArr[j];
+				console.log( cell.row.index  + "," +  cell.column.index + ":" +cell.value+ "[" + cell.guesses+"]");
+			}
+		}
 	}
 
 	// function countHowManyCellsLeft(sudoku){
@@ -110,7 +183,7 @@
 
 
 
-	 this.loadDemoSudoku = function( demoSudoku) {
+	 this.loadDemoSudoku = function(demoSudoku) {
 		//  set all zeros
 		var row;
 		for ( row = 0; row < demoSudoku.getRowArray().length; row++) {

@@ -17,11 +17,12 @@
  		$scope.sudoku  = parseFromJava($scope.sudoku )
  	};
 
+ 	init();
+
 
  	res = SudokuService.parse();
  	res.then(function(response) {
  		var finalData = response.data;
- 		//$scope.sudoku.rowArray = finalData;
 
  		for (i = 0; i < finalData.length; i++) { 
 
@@ -29,18 +30,41 @@
  			restGroup = finalData[i].group;
  			for (j = 0; j < sudokuGroup.length; j++) { 
  				sudokuGroup[j].value = restGroup[j].value;
+
  			}
 
- 			//text += cars[i] + "<br>";
  		}
 
  	}, function errorCallback(response) {
  		console.log(response.status + " : " + response.statusText);
  	});
 
+    $scope.solve = function(){
+ 	res2 = SudokuService.solveSudoku($scope.sudoku);
+ 	res2.then(function(response) {
+ 		var finalData = response.data;
 
- 	$scope.solve = function(){
- 		$scope.sudoku  = SudokuService.solveSudoku($scope.sudoku );
+ 		for (i = 0; i < finalData.length; i++) { 
+
+ 			sudokuGroup = $scope.sudoku.rowArray[i].group;
+ 			restGroup = finalData[i].group;
+ 			for (j = 0; j < sudokuGroup.length; j++) { 
+ 				sudokuGroup[j].value = restGroup[j].value;
+ 				sudokuGroup[j].color = restGroup[j].color;
+ 			}
+
+ 		}
+
+ 		$scope.sudoku.syncThreeByThreeSquaresToRow();
+
+ 	}, function errorCallback(response) {
+ 		console.log(response.status + " : " + response.statusText);
+ 	});
+ };
+
+
+ 	$scope.solveJS = function(){
+ 		$scope.sudoku  = SudokuService.solveSudokuJS($scope.sudoku );
  	};
 
  	$scope.solveSudokuStepByStep = function(i){
@@ -53,7 +77,7 @@
  		init();
  	};
 
- 	init();
+ 	
  	//$scope.sudoku  = SudokuCreatorService.create()
 
  	console.log($scope.sudoku);

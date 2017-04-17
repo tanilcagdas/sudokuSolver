@@ -2,7 +2,7 @@
 		if (sudokuSolution.howManyCellsLeft != 0)
 			try {
 				determineWhoHasUniqueGuessInGroupHorizontal(sudokuSolution);
-				determineWhoHasUniqueGuessInGroupVertical(sudokuSolution);
+			    determineWhoHasUniqueGuessInGroupVertical(sudokuSolution);
 			} 
 			catch (e) {
 				console.error(e);
@@ -64,8 +64,8 @@
 
 	function clearGuesseswithdifsVertical(sudokuSolution, difs, index){
 
-		var div = Math.floor(index / 3);
-		var start = div + (index % 3) ;
+		
+		var start = (index % 3) ;
 		var end = start + 7;
 		for(var i = start; i < end ; i+=3){
 			if(i==index){
@@ -162,13 +162,13 @@
 		}
 
 		var dif1 =  subtract(grp1Gss,grp2Gss);
-		var dif1 =  subtract(dif1,grp3Gss);
+		 dif1 =  subtract(dif1,grp3Gss);
 
 		var dif2 =  subtract(grp2Gss,grp1Gss);
-		var dif2 =  subtract(dif2,grp3Gss);
+		 dif2 =  subtract(dif2,grp3Gss);
 
 		var dif3 =  subtract(grp3Gss,grp1Gss);
-		var dif3 =  subtract(dif3,grp2Gss);
+		 dif3 =  subtract(dif3,grp2Gss);
 		var difs = {'dif1':dif1,'dif2':dif2,'dif3':dif3};
 		printDifs(difs);
 
@@ -197,13 +197,13 @@
 		}
 
 		var dif1 =  subtract(grp1Gss,grp2Gss);
-		var dif1 =  subtract(dif1,grp3Gss);
+		 dif1 =  subtract(dif1,grp3Gss);
 
 		var dif2 =  subtract(grp2Gss,grp1Gss);
-		var dif2 =  subtract(dif2,grp3Gss);
+		 dif2 =  subtract(dif2,grp3Gss);
 
 		var dif3 =  subtract(grp3Gss,grp1Gss);
-		var dif3 =  subtract(dif3,grp2Gss);
+		 dif3 =  subtract(dif3,grp2Gss);
 		var difs = {'dif1':dif1,'dif2':dif2,'dif3':dif3};
 		printDifs(difs);
 

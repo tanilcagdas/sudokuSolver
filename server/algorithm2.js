@@ -44,10 +44,12 @@
 								}
 							};
 						}
+						console.log("Cell " + cell.row.index + "," + cell.column.index +" has unique guess "+ number + " in group of "+ group.constructor.name  );
 						cell.setValue(number);
 						cell.setColor(RED);
 						group.sudoku.setSudokuHasChanged(true);
 						group.sudoku.howManyCellsLeft = group.sudoku.howManyCellsLeft - 1;
+						clearGuessesInGroupOfSudoku(group.sudoku);
 						break;
 					};
 				}

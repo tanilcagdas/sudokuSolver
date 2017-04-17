@@ -26,10 +26,13 @@ function  determineCellsWhoHas1GuessForCell( cell){
 		var value = cell.getGuesses()[0];
 		cell.setValue(value);
 		cell.setColor(BLUE);
+		console.log("Cell " + cell.row.index + "," + cell.column.index +" has one guess "+ value);
+		cell.row.sudoku.howManyCellsLeft = cell.row.sudoku.howManyCellsLeft - 1;
 		if (cell.getRow().sudoku.sudokuHasChanged === false) {
 			cell.getRow().sudoku.sudokuHasChanged = true;
 			console.log("sudoku has changed value has been found");
 		}
+		clearGuessesInGroupOfSudoku(cell.row.sudoku);
 	}
 }
 

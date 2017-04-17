@@ -58,6 +58,7 @@ function defaultGuesses(){
 			cell.setGuesses( defaultGuesses());
 		} else {
 			cell.setFound(true);
+			cell.guesses = [];
 			console.log(cell.getValue() + ", " + cell.isFound());
 			console.log(cell.getColumn().sudoku.howManyCellsLeft);
 		}
